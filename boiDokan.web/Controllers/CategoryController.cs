@@ -24,7 +24,23 @@ public class CategoryController : Controller
     // GET
     public IActionResult Create()
     {
-        
         return View();
+    }
+    
+    // POST
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Category model)
+    {
+        if (model.Name == model.DisplayOrder.ToString())
+        {
+            ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name");
+        }
+        if (!ModelState.IsValid) return View(model);
+
+        _dbContext.Categories!.Add(model);
+        _dbContext.SaveChanges();
+        
+        return RedirectToAction(nameof(Index));
     }
 }
