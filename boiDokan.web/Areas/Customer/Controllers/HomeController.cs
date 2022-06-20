@@ -2,8 +2,9 @@
 using boiDokan.models.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace boiDokan.web.Controllers;
+namespace boiDokan.web.Areas.Customer.Controllers;
 
+[Area("Customer")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

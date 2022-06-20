@@ -2,8 +2,9 @@ using boiDokan.dal.Repository.IRepository;
 using boiDokan.entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace boiDokan.web.Controllers;
+namespace boiDokan.web.Areas.Admin.Controllers;
 
+[Area("Admin")]
 public class CategoryController : Controller
 {
     // private readonly ICategoryRepository _repository;

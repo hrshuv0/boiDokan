@@ -15,12 +15,38 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
       <PackageReference Include="toastr" Version="2.1.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\boiDokan.dal\boiDokan.dal.csproj" />
       <ProjectReference Include="..\boiDokan.entities\boiDokan.entities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Areas\Admin\Data" />
+      <Folder Include="Areas\Admin\Models" />
+      <Folder Include="Areas\Customer\Data" />
+      <Folder Include="Areas\Customer\Models" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Category\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Create.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Edit.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Customer\Views\Home\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Customer\Views\Home\Privacy.cshtml" />
     </ItemGroup>
 
 </Project>
