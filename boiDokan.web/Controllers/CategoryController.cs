@@ -1,5 +1,6 @@
-using boiDokan.web.Data;
-using boiDokan.web.Models;
+
+using boiDokan.dal.Data;
+using boiDokan.entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace boiDokan.web.Controllers;

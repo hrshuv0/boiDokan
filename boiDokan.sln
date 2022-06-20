@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boiDokan.web", "boiDokan.web\boiDokan.web.csproj", "{0222751C-837F-468B-81A2-A6202DB64B57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boiDokan.dal", "boiDokan.dal\boiDokan.dal.csproj", "{9C8197D4-8C88-4A62-96D4-E655213990BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boiDokan.utility", "boiDokan.utility\boiDokan.utility.csproj", "{61CFDFC4-5F01-41E8-8E8B-BACFDA98DEDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boiDokan.entities", "boiDokan.entities\boiDokan.entities.csproj", "{BACFEAF1-7720-40AD-934B-88BDA04CE6B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{0222751C-837F-468B-81A2-A6202DB64B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0222751C-837F-468B-81A2-A6202DB64B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0222751C-837F-468B-81A2-A6202DB64B57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C8197D4-8C88-4A62-96D4-E655213990BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C8197D4-8C88-4A62-96D4-E655213990BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C8197D4-8C88-4A62-96D4-E655213990BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C8197D4-8C88-4A62-96D4-E655213990BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61CFDFC4-5F01-41E8-8E8B-BACFDA98DEDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CFDFC4-5F01-41E8-8E8B-BACFDA98DEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CFDFC4-5F01-41E8-8E8B-BACFDA98DEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CFDFC4-5F01-41E8-8E8B-BACFDA98DEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BACFEAF1-7720-40AD-934B-88BDA04CE6B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACFEAF1-7720-40AD-934B-88BDA04CE6B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACFEAF1-7720-40AD-934B-88BDA04CE6B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACFEAF1-7720-40AD-934B-88BDA04CE6B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

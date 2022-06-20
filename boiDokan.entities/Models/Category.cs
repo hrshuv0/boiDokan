@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace boiDokan.web.Models;
+namespace boiDokan.entities.Models;
 
 public class Category
 {

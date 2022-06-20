@@ -1,4 +1,4 @@
-using boiDokan.web.Data;
+using boiDokan.dal.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -9,12 +9,18 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="toastr" Version="2.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\boiDokan.dal\boiDokan.dal.csproj" />
+      <ProjectReference Include="..\boiDokan.entities\boiDokan.entities.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
+using boiDokan.models.Models;
 using Microsoft.AspNetCore.Mvc;
-using boiDokan.web.Models;
 
 namespace boiDokan.web.Controllers;
 

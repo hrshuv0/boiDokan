@@ -1,7 +1,7 @@
-using boiDokan.web.Models;
+using boiDokan.entities.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace boiDokan.web.Data;
+namespace boiDokan.dal.Data;
 
 public class ApplicationDbContext : DbContext
 {

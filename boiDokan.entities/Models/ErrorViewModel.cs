@@ -1,4 +1,4 @@
-namespace boiDokan.web.Models;
+namespace boiDokan.models.Models;
 
 public class ErrorViewModel
 {
