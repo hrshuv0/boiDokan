@@ -30,8 +30,8 @@
         @foreach (var category in Model)
         {
             <tr>
-                <td width="50%">@category.Name</td>
-                <td width="30%">@category.DisplayOrder</td>
+                <td width="40%">@category.Name</td>
+                <td width="20%">@category.DisplayOrder</td>
                 <td>
                     <div class="w-75 btn-group" role="group">
                         <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id"
