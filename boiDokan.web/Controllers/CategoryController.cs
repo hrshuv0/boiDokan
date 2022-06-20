@@ -6,18 +6,19 @@ namespace boiDokan.web.Controllers;
 
 public class CategoryController : Controller
 {
-    private readonly ICategoryRepository _repository;
+    // private readonly ICategoryRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public CategoryController(ICategoryRepository repository)
+    public CategoryController(IUnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
 
     // GET
     public IActionResult Index()
     {
-        IEnumerable<Category> categoryList = _repository.GetAll();
+        IEnumerable<Category> categoryList = _unitOfWork.Category.GetAll();
         
         return View(categoryList);
     }
@@ -38,8 +39,8 @@ public class CategoryController : Controller
         }
         if (!ModelState.IsValid) return View(model);
 
-        _repository.Add(model);
-        _repository.Save();
+        _unitOfWork.Category.Add(model);
+        _unitOfWork.Save();
         
         TempData["success"] = "Category created successfully";
         return RedirectToAction(nameof(Index));
@@ -51,7 +52,7 @@ public class CategoryController : Controller
         if (id is null or 0) return NotFound();
 
         // var category = _dbContext.Categories!.Find(id);
-        var category = _repository.GetFirstOrDefault(c => c.Id == id);
+        var category = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
         if (category is null) return NotFound();
         
         return View(category);
@@ -68,8 +69,8 @@ public class CategoryController : Controller
         }
         if (!ModelState.IsValid) return View(model);
 
-        _repository.Update(model);
-        _repository.Save();
+        _unitOfWork.Category.Update(model);
+        _unitOfWork.Save();
         
         TempData["success"] = "Category updated successfully";
         return RedirectToAction(nameof(Index));
@@ -82,7 +83,7 @@ public class CategoryController : Controller
         if (id is null or 0) return NotFound();
 
         // var category = _dbContext.Categories!.Find(id);
-        var category = _repository.GetFirstOrDefault(c => c.Id == id);
+        var category = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
         if (category is null) return NotFound();
         
         return View(category);
@@ -93,12 +94,12 @@ public class CategoryController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult DeletePost(int? id)
     {
-        var category = _repository.GetFirstOrDefault(c => c.Id == id);
+        var category = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
 
         if (category is null) return NotFound();
 
-        _repository.Remove(category);
-        _repository.Save();
+        _unitOfWork.Category.Remove(category);
+        _unitOfWork.Save();
         
         TempData["delete"] = "Category deleted successfully";
         return RedirectToAction(nameof(Index));
