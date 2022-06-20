@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\boiDokan.entities\boiDokan.entities.csproj" />
-      <ProjectReference Include="..\boiDokan.moduls\boiDokan.moduls.csproj" />
     </ItemGroup>
 
 </Project>
