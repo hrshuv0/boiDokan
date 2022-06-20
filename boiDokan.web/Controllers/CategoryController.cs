@@ -1,5 +1,4 @@
-
-using boiDokan.dal.Data;
+using boiDokan.dal.Repository.IRepository;
 using boiDokan.entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,19 +6,20 @@ namespace boiDokan.web.Controllers;
 
 public class CategoryController : Controller
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ICategoryRepository _repository;
 
-    public CategoryController(ApplicationDbContext dbContext)
+    public CategoryController(ICategoryRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
+
 
     // GET
     public IActionResult Index()
     {
-        IEnumerable<Category> objCategoryList = _dbContext.Categories!.ToList();
+        IEnumerable<Category> categoryList = _repository.GetAll();
         
-        return View(objCategoryList);
+        return View(categoryList);
     }
     
     
@@ -38,8 +38,8 @@ public class CategoryController : Controller
         }
         if (!ModelState.IsValid) return View(model);
 
-        _dbContext.Categories!.Add(model);
-        _dbContext.SaveChanges();
+        _repository.Add(model);
+        _repository.Save();
         
         TempData["success"] = "Category created successfully";
         return RedirectToAction(nameof(Index));
@@ -50,8 +50,8 @@ public class CategoryController : Controller
     {
         if (id is null or 0) return NotFound();
 
-        var category = _dbContext.Categories!.Find(id);
-        // var categoryFirst = _dbContext.Categories!.FirstOrDefault(c => c.Id == id);
+        // var category = _dbContext.Categories!.Find(id);
+        var category = _repository.GetFirstOrDefault(c => c.Id == id);
         if (category is null) return NotFound();
         
         return View(category);
@@ -68,8 +68,8 @@ public class CategoryController : Controller
         }
         if (!ModelState.IsValid) return View(model);
 
-        _dbContext.Categories!.Update(model);
-        _dbContext.SaveChanges();
+        _repository.Update(model);
+        _repository.Save();
         
         TempData["success"] = "Category updated successfully";
         return RedirectToAction(nameof(Index));
@@ -81,8 +81,8 @@ public class CategoryController : Controller
     {
         if (id is null or 0) return NotFound();
 
-        var category = _dbContext.Categories!.Find(id);
-        // var categoryFirst = _dbContext.Categories!.FirstOrDefault(c => c.Id == id);
+        // var category = _dbContext.Categories!.Find(id);
+        var category = _repository.GetFirstOrDefault(c => c.Id == id);
         if (category is null) return NotFound();
         
         return View(category);
@@ -93,12 +93,12 @@ public class CategoryController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult DeletePost(int? id)
     {
-        var category = _dbContext.Categories!.Find(id);
+        var category = _repository.GetFirstOrDefault(c => c.Id == id);
 
         if (category is null) return NotFound();
 
-        _dbContext.Categories.Remove(category);
-        _dbContext.SaveChanges();
+        _repository.Remove(category);
+        _repository.Save();
         
         TempData["delete"] = "Category deleted successfully";
         return RedirectToAction(nameof(Index));
