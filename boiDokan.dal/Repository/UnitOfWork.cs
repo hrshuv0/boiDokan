@@ -9,12 +9,15 @@ public class UnitOfWork : IUnitOfWork
 
     public ICategoryRepository Category { get; }
     public ICoverTypeRepository CoverType { get; }
+    public IProductRepository Product { get; }
 
     public UnitOfWork(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
+        
         CoverType = new CoverTypeRepository(_dbContext);
         Category = new CategoryRepository(_dbContext);
+        Product = new ProductRepository(_dbContext);
     }
 
     public void Save()
