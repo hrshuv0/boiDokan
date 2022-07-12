@@ -54,6 +54,8 @@ public class ProductController : Controller
         }
         else
         {
+            productVm.Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
+            return View(productVm);
             // update product
         }
 
@@ -74,6 +76,15 @@ public class ProductController : Controller
             var uploads = Path.Combine(wwwRootPath, @"images/products");
             var extension = Path.GetExtension(file.FileName);
 
+            if (model.Product.ImageUrl is not null)
+            {
+                var oldImagePath = Path.Combine(wwwRootPath, model.Product.ImageUrl.Trim('/'));
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
             using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
             {
                 file.CopyTo(fileStreams);
@@ -81,8 +92,16 @@ public class ProductController : Controller
 
             model.Product.ImageUrl = @"/images/products/" + fileName + extension;
         }
-        _unitOfWork.Product.Add(model.Product);
-        
+
+        if (model.Product.Id == 0)
+        {
+            _unitOfWork.Product.Add(model.Product);
+        }
+        else
+        {
+            _unitOfWork.Product.Update(model.Product);
+        }
+
         _unitOfWork.Save();
 
         TempData["success"] = "Product updated successfully";
@@ -124,12 +143,9 @@ public class ProductController : Controller
     [HttpGet]
     public IActionResult GetAll()
     {
-        var productList = _unitOfWork.Product.GetAll();
+        var productList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
         return Json(new { data = productList });
     }
 
-    
-
     #endregion
-    
 }

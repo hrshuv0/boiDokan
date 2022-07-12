@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using boiDokan.dal.Repository.IRepository;
+using boiDokan.entities.Models;
 using boiDokan.models.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,15 +10,18 @@ namespace boiDokan.web.Areas.Customer.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
     {
         _logger = logger;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index()
     {
-        return View();
+        IEnumerable<Product> productList = _unitOfWork.Product.GetAll();
+        return View(productList);
     }
 
     public IActionResult Privacy()
