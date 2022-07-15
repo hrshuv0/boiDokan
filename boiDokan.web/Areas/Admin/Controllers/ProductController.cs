@@ -109,33 +109,17 @@ public class ProductController : Controller
     }
 
 
-    [HttpGet]
-    public IActionResult Delete(int? id)
-    {
-        if (id is null or 0) return NotFound();
-
-        // var category = _dbContext.Categories!.Find(id);
-        var coverType = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == id);
-        // if (coverType is null) return NotFound();
-
-        return View(coverType);
-    }
-
-
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public IActionResult DeletePost(int? id)
-    {
-        var product = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == id);
-
-        // if (product is null) return NotFound();
-
-        _unitOfWork.Product.Remove(product);
-        _unitOfWork.Save();
-
-        TempData["delete"] = "Product deleted successfully";
-        return RedirectToAction(nameof(Index));
-    }
+    // [HttpGet]
+    // public IActionResult Delete(int? id)
+    // {
+    //     if (id is null or 0) return NotFound();
+    //
+    //     // var category = _dbContext.Categories!.Find(id);
+    //     var coverType = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == id);
+    //     // if (coverType is null) return NotFound();
+    //
+    //     return View(coverType);
+    // }
 
 
     #region API CALLS
@@ -145,6 +129,34 @@ public class ProductController : Controller
     {
         var productList = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
         return Json(new { data = productList });
+    }
+
+    [HttpDelete]
+    public IActionResult Delete(int? id)
+    {
+        var product = _unitOfWork.Product.GetFirstOrDefault(c => c.Id == id);
+
+        if (product is null)
+            return Json(new
+            {
+                success = false,
+                message = "Error while deleting"
+            });
+
+        var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, product.ImageUrl!.Trim('/'));
+        if (System.IO.File.Exists(oldImagePath))
+        {
+            System.IO.File.Delete(oldImagePath);
+        }
+        
+        _unitOfWork.Product.Remove(product);
+        _unitOfWork.Save();
+
+        return Json(new
+        {
+            success = true,
+            message = "Delete Successful"
+        });
     }
 
     #endregion
