@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using boiDokan.dal.Repository.IRepository;
+using boiDokan.entities;
 using boiDokan.entities.Models;
+using boiDokan.entities.ViewModels;
 using boiDokan.models.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +22,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<Product> productList = _unitOfWork.Product.GetAll();
+        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
         return View(productList);
     }
 
@@ -33,5 +35,17 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public IActionResult Details(int id)
+    {
+        Product product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties:"Category,CoverType");
+
+        ShoppingCart cartObj = new()
+        {
+            Count = 1,
+            Product = product
+        };
+        return View(cartObj);
     }
 }

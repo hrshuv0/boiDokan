@@ -28,7 +28,7 @@ public class Repository<T> : IRepository<T> where T : class
         {
             foreach (var includeProp in includeProperties.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries))
             {
-                query.Include(includeProp);
+                query = query.Include(includeProp);
             }
         }
 

@@ -7,9 +7,21 @@
         <div class="col-lg-3 col-md-6">
             <div class="row p-2">
                 <div class="col-12 p-1" style="border: 1px solid #008cba; border-radius: 5px">
-                    <div class="card" style="height: 380px">
-                        <img src="@product.ImageUrl" class="rounded" height="100%"/>
-                        <div class="ps-1"></div>
+                    <div class="card" >
+                        <img src="@product.ImageUrl" class="rounded" height="250px"/>
+                        <div class="card-body">
+                            <div class="ps-1">
+                                <p class="card-title h5 text-primary" style="height: 30px">@product.Title</p>
+                                <p class="card-title text-info"> by <b>@product.Author</b></p>
+                            </div>
+                            <div class="ps-1">
+                                <p>List Price:<strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
+                                <p>Price: $@product.Price100.ToString("0.00")</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@product.Id">Details</a>
                     </div>
                 </div>
             </div>
