@@ -47,6 +47,9 @@
       <AdditionalFiles Include="Areas\Admin\Views\Category\Delete.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\Category\Edit.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\Category\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Company\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Company\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Company\UpSert.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\CoverType\Create.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\CoverType\Delete.cshtml" />
       <AdditionalFiles Include="Areas\Admin\Views\CoverType\Edit.cshtml" />
