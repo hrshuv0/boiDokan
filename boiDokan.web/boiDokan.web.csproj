@@ -23,6 +23,7 @@
     <ItemGroup>
       <ProjectReference Include="..\boiDokan.dal\boiDokan.dal.csproj" />
       <ProjectReference Include="..\boiDokan.entities\boiDokan.entities.csproj" />
+      <ProjectReference Include="..\boiDokan.utility\boiDokan.utility.csproj" />
     </ItemGroup>
 
     <ItemGroup>
