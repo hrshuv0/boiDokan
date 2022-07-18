@@ -14,6 +14,7 @@ public class Repository<T> : IRepository<T> where T : class
     {
         _dbContext = dbContext;
         // _dbContext.Products!.Include(u => u.Category).Include(u => u.CoverType);
+        // _dbContext.ShoppingCarts!.Include(u => u.Product);
         _dbSet = _dbContext.Set<T>();
     }
 
@@ -35,9 +36,12 @@ public class Repository<T> : IRepository<T> where T : class
         return query.FirstOrDefault()!;
     }
 
-    public IEnumerable<T> GetAll(string? includeProperties=null)
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties=null)
     {
         IQueryable<T> query = _dbSet;
+        
+        if(filter is not null)
+            query = query.Where(filter);
 
         if (includeProperties is not null)
         {
