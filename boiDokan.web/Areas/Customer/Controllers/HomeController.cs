@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using boiDokan.dal.Repository.IRepository;
 using boiDokan.entities;
 using boiDokan.entities.Models;
 using boiDokan.entities.ViewModels;
 using boiDokan.models.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace boiDokan.web.Areas.Customer.Controllers;
@@ -37,15 +39,44 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult Details(int id)
+    public IActionResult Details(int productId)
     {
-        Product product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id, includeProperties:"Category,CoverType");
+        Product product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == productId, includeProperties:"Category,CoverType");
 
         ShoppingCart cartObj = new()
         {
             Count = 1,
+            ProductId = productId,
             Product = product
         };
         return View(cartObj);
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public IActionResult Details(ShoppingCart cart)
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity!;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+        cart.ApplicationUserId = claim!.Value;
+
+        ShoppingCart shoppingCart = _unitOfWork.ShoppingCart.GetFirstOrDefault(
+            u => u.ApplicationUserId == claim.Value && 
+                 u.ProductId == cart.ProductId);
+
+        if (shoppingCart is null)
+        {
+            _unitOfWork.ShoppingCart.Add(cart);
+        }
+        else
+        {
+            _unitOfWork.ShoppingCart.IncrementCount(shoppingCart, cart.Count);
+        }
+        
+        _unitOfWork.Save();
+
+        return RedirectToAction(nameof(Index));
     }
 }

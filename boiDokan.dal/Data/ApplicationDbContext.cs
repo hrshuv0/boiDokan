@@ -1,3 +1,4 @@
+using boiDokan.entities;
 using boiDokan.entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,4 +16,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Product>? Products { get; set; }
     public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
     public DbSet<Company>? Companies { get; set; }
+    public DbSet<ShoppingCart>? ShoppingCarts { get; set; }
 }

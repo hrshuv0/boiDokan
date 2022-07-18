@@ -6,6 +6,7 @@
 }
 
 <form method="post">
+    <input hidden asp-for="ProductId"/>
     <div class="card container">
         <div class="card-header bg-primary text-light ms-0 row">
             <div class="col-12 col-md-6">
@@ -60,7 +61,8 @@
 
                         </div>
                         <div class="row ps-2">
-                            <div class="text-secondary"><p>@Html.Raw(@Model.Product.Description)</p></div>
+                            <div class="text-secondary">
+                                <p>@Html.Raw(@Model.Product.Description)</p></div>
                         </div>
                         <div class="row ps-2">
                             <div class="col-2 col-sm-4 text-primary">

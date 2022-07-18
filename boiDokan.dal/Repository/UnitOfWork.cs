@@ -11,15 +11,19 @@ public class UnitOfWork : IUnitOfWork
     public ICoverTypeRepository CoverType { get; }
     public IProductRepository Product { get; }
     public ICompanyRepository Company { get; }
+    public IShoppingCartRepository ShoppingCart { get; }
+    public IApplicationUserRepository ApplicationUser { get; }
 
     public UnitOfWork(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        
+
         CoverType = new CoverTypeRepository(_dbContext);
         Category = new CategoryRepository(_dbContext);
         Product = new ProductRepository(_dbContext);
         Company = new CompanyRepository(_dbContext);
+        ShoppingCart = new ShoppingCartRepository(_dbContext);
+        ApplicationUser = new ApplicationUserRepository(_dbContext);
     }
 
     public void Save()
