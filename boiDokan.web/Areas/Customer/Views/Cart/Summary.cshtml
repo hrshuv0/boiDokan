@@ -1,5 +1,8 @@
 ﻿@using boiDokan.entities.ViewModels
+@using boiDokan.utility
+@using Microsoft.Extensions.Options
 @model ShoppingCartVm
+@inject IOptions<StripeSettings> Stripe
 
 <form method="post">
     <br/>
@@ -90,7 +93,7 @@
                                         <h6 class="my-0">@details.Product!.Title</h6>
                                         <small class="text-muted">Quantity: @details.Count</small>
                                     </div>
-                                    <span class="text-muted">@((details.Price*details.Count).ToString("c"))</span>
+                                    <span class="text-muted">@((details.Price * details.Count).ToString("c"))</span>
                                 </li>
                             }
                             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -106,9 +109,11 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-12 col-md-8 pt-2">
-                    <p style="color: maroon;font-size: 14px;">Estimate Arrival Date:
-                        @DateTime.Now.AddDays(3).ToShortDateString() - @DateTime.Now.AddDays(7).ToShortDateString()</p>
-                    
+                    <p style="color: maroon;font-size: 14px;">
+                        Estimate Arrival Date:
+                        @DateTime.Now.AddDays(3).ToShortDateString() - @DateTime.Now.AddDays(7).ToShortDateString()
+                    </p>
+
                 </div>
                 <div class="col-12 col-md-4">
                     <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
@@ -117,3 +122,10 @@
         </div>
     </div>
 </form>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
