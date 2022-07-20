@@ -1,4 +1,5 @@
 using boiDokan.dal.Repository.IRepository;
+using boiDokan.utility;
 using Microsoft.AspNetCore.Mvc;
 
 namespace boiDokan.web.Areas.Admin.Controllers;
@@ -21,10 +22,27 @@ public class OrderController : Controller
 
     #region API CALLS
 
-    public IActionResult GetAll()
+    public IActionResult GetAll(string status)
     {
         var orderHeaders = _unitOfWork.OrderHeader.GetAll(includeProperties:"ApplicationUser");
 
+        switch (status)
+        {
+            case "pending":
+                orderHeaders = orderHeaders.Where(u => u.PaymentStatus == CustomStatus.PaymentStatusDelayedPayment);
+                break;
+            case "inprocess":
+                orderHeaders = orderHeaders.Where(u => u.OrderStatus == CustomStatus.StatusInProcess);
+                break;
+            case "completed":
+                orderHeaders = orderHeaders.Where(u => u.OrderStatus == CustomStatus.StatusShipped);
+                break;
+            case "approved":
+                orderHeaders = orderHeaders.Where(u => u.OrderStatus == CustomStatus.StatusApproved);
+                break;
+            default:
+                break;
+        }
         return Json(new { data = orderHeaders });
     }
 
