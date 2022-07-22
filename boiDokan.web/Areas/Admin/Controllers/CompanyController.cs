@@ -1,12 +1,15 @@
 using boiDokan.dal.Repository.IRepository;
 using boiDokan.entities.Models;
 using boiDokan.entities.ViewModels;
+using boiDokan.utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace boiDokan.web.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = SD.RoleAdmin)]
 public class CompanyController : Controller
 {
     // private readonly ICategoryRepository _repository;

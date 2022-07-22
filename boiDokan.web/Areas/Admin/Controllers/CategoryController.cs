@@ -1,10 +1,13 @@
 using boiDokan.dal.Repository.IRepository;
 using boiDokan.entities.Models;
+using boiDokan.utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace boiDokan.web.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = SD.RoleAdmin)]
 public class CategoryController : Controller
 {
     // private readonly ICategoryRepository _repository;

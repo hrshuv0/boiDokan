@@ -142,7 +142,7 @@ public class OrderController : Controller
             orderHeaderFromDb.TrackingNumber = OrderVm.OrderHeader.TrackingNumber;
         }
 
-        // _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
+        _unitOfWork.OrderHeader.Update(orderHeaderFromDb);
         _unitOfWork.Save();
 
         TempData["Success"] = "Order details updated successfully";
