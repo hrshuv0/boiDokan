@@ -19,9 +19,18 @@ public class Repository<T> : IRepository<T> where T : class
     }
 
     // includeProperties - "Category, CoverType"
-    public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties=null)
+    public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties=null, bool tracked=true)
     {
-        IQueryable<T> query = _dbSet;
+        IQueryable<T> query;
+        
+        if (tracked)
+        {
+            query = _dbSet;
+        }
+        else
+        {
+            query = _dbSet.AsNoTracking();
+        }
 
         query = query.Where(filter);
         

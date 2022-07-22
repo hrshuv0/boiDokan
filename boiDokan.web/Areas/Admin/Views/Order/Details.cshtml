@@ -3,6 +3,7 @@
 @model OrderVm
 
 <form method="post">
+<input asp-for="OrderHeader.Id" hidden/>
 <br/>
 <div class="container">
 <div class="card">
@@ -190,7 +191,7 @@
             <input asp-for="OrderHeader.PaymentStatus" type="text" readonly class="form-control"/>
         </div>
     </div>
-    <button type="submit" class="btn btn-warning form-control mt-2" formmethod="post">Update Oeder Details</button>
+    <input type="submit" asp-action="UpdateOrderDetail" class="btn btn-warning form-control mt-2" formmethod="post" value="Update Order Details"/>
 </div>
 <div class="col-12 col-lg-5 offset-lg-1">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -226,11 +227,27 @@
             </div>
         </li>
     </ul>
-    <input type="submit" class="btn btn-primary form-control my-1" value="Start Processing"/>
-    <input type="submit" class="btn btn-primary form-control my-1" value="Ship Order"/>
-    <input type="submit" class="btn btn-success form-control my-1" value="Pay Now"/>
-    <input type="submit" class="btn btn-danger form-control my-1" value="Cancel Order"/>
-
+    @if (User.IsInRole(SD.RoleAdmin) || User.IsInRole(SD.RoleEmployee))
+    {
+        if (Model.OrderHeader.OrderStatus == CustomStatus.StatusApproved)
+        {
+            <input asp-action="StartProcessing" type="submit" class="btn btn-primary form-control my-1" value="Start Processing"/>
+        }
+        if (Model.OrderHeader.OrderStatus == CustomStatus.StatusInProcess)
+        {
+            <input asp-action="ShipOrder" onclick="return ValidateInput()" type="submit" class="btn btn-primary form-control my-1" value="Ship Order"/>
+        }
+        if (Model.OrderHeader.PaymentStatus == CustomStatus.PaymentStatusDelayedPayment
+            && Model.OrderHeader.OrderStatus == CustomStatus.StatusShipped)
+        {
+            <input type="submit" class="btn btn-success form-control my-1" value="Pay Now"/>
+        }
+        if (Model.OrderHeader.OrderStatus != CustomStatus.StatusRefunded &&
+            Model.OrderHeader.OrderStatus != CustomStatus.StatusCancelled)
+        {
+            <input asp-action="CancelOrder" type="submit" class="btn btn-danger form-control my-1" value="Cancel Order"/>
+        }
+    }
 </div>
 
 </div>
@@ -243,3 +260,32 @@
 </div>
 </div>
 </form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+    
+    <script>
+    function ValidateInput(){
+            if (document.getElementById("trackingNumber").value === ""){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter tracking number!'
+                    });
+                    return false
+                }       
+            if (document.getElementById("carrier").value === ""){
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please enter carrier!'
+                });
+                return false
+            }
+            
+            return true;
+            }
+    </script>
+    
+}
