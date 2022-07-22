@@ -7,12 +7,14 @@
 <br/>
 <div class="container">
 <div class="card">
-<div class="card-header bg-dark text-light ms-0 row container">
-    <div class="col-12 d-none d-md-block col-md-6 pb-1">
-        <i class="fa fa-shopping-cart"></i>&nbsp;Order Summary
-    </div>
-    <div class="col-12 col-md-4 offset-md-2 text-end">
-        <a asp-action="Index" class="btn btn-outline-info form-control btn-sm">Back to Orders</a>
+<div class="card-header bg-dark text-light ms-0">
+    <div class="container row">
+        <div class="col-12 d-none d-md-block col-md-6 pb-1">
+            <i class="fa fa-shopping-cart"></i>&nbsp;Order Summary
+        </div>
+        <div class="col-12 col-md-4 offset-md-2 text-end">
+            <a asp-action="Index" class="btn btn-outline-info form-control btn-sm">Back to Orders</a>
+        </div>
     </div>
 </div>
 <div class="card-body">
@@ -243,7 +245,8 @@
             <input type="submit" class="btn btn-success form-control my-1" value="Pay Now"/>
         }
         if (Model.OrderHeader.OrderStatus != CustomStatus.StatusRefunded &&
-            Model.OrderHeader.OrderStatus != CustomStatus.StatusCancelled)
+            Model.OrderHeader.OrderStatus != CustomStatus.StatusCancelled &&
+            Model.OrderHeader.OrderStatus != CustomStatus.StatusShipped)
         {
             <input asp-action="CancelOrder" type="submit" class="btn btn-danger form-control my-1" value="Cancel Order"/>
         }
@@ -264,7 +267,7 @@
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial"/>
-    
+
     <script>
     function ValidateInput(){
             if (document.getElementById("trackingNumber").value === ""){
@@ -287,5 +290,5 @@
             return true;
             }
     </script>
-    
+
 }
