@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\boiDokan.entities\boiDokan.entities.csproj" />
+      <ProjectReference Include="..\boiDokan.utility\boiDokan.utility.csproj" />
     </ItemGroup>
 
 </Project>

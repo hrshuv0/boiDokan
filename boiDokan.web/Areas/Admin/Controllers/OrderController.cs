@@ -52,7 +52,8 @@ public class OrderController : Controller
             includeProperties: "Product");
 
         //stripe settings
-        var domain = "https://localhost:7257/";
+        // var domain = "https://localhost:7257/";
+        var domain = "https://boidokan.azurewebsites.net/";
 
         var options = new SessionCreateOptions
         {

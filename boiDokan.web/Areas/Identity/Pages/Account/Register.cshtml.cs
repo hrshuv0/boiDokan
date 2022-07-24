@@ -131,13 +131,13 @@ namespace boiDokan.web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_roleManager.RoleExistsAsync(SD.RoleAdmin).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.RoleEmployee)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.RoleUserIndividual)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.RoleUserCompany)).GetAwaiter().GetResult();
-            }
+            // if (!_roleManager.RoleExistsAsync(SD.RoleAdmin).GetAwaiter().GetResult())
+            // {
+            //     _roleManager.CreateAsync(new IdentityRole(SD.RoleAdmin)).GetAwaiter().GetResult();
+            //     _roleManager.CreateAsync(new IdentityRole(SD.RoleEmployee)).GetAwaiter().GetResult();
+            //     _roleManager.CreateAsync(new IdentityRole(SD.RoleUserIndividual)).GetAwaiter().GetResult();
+            //     _roleManager.CreateAsync(new IdentityRole(SD.RoleUserCompany)).GetAwaiter().GetResult();
+            // }
             
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
