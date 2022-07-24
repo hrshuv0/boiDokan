@@ -72,7 +72,12 @@ public class CartController : Controller
         var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == cartId);
 
         if (cart.Count <= 1)
+        {
             _unitOfWork.ShoppingCart.Remove(cart);
+            var count = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cart.ApplicationUserId).ToList()
+                .Count;
+            HttpContext.Session.SetInt32(CustomStatus.SessionCart, count);
+        }
         else
             _unitOfWork.ShoppingCart.DecrementCount(cart, 1);
 
@@ -87,6 +92,9 @@ public class CartController : Controller
         _unitOfWork.ShoppingCart.Remove(cart);
         _unitOfWork.Save();
 
+        var count = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+        HttpContext.Session.SetInt32(CustomStatus.SessionCart, count);
+            
         return RedirectToAction(nameof(Index));
     }
 

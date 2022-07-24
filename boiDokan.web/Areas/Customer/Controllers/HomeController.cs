@@ -5,6 +5,7 @@ using boiDokan.entities;
 using boiDokan.entities.Models;
 using boiDokan.entities.ViewModels;
 using boiDokan.models.Models;
+using boiDokan.utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -69,13 +70,16 @@ public class HomeController : Controller
         if (shoppingCart is null)
         {
             _unitOfWork.ShoppingCart.Add(cart);
+            _unitOfWork.Save();
+            HttpContext.Session.SetInt32(CustomStatus.SessionCart, 
+                _unitOfWork.ShoppingCart.GetAll(u=>u.ApplicationUserId == claim.Value).ToList().Count);
         }
         else
         {
             _unitOfWork.ShoppingCart.IncrementCount(shoppingCart, cart.Count);
+            _unitOfWork.Save();
         }
         
-        _unitOfWork.Save();
 
         return RedirectToAction(nameof(Index));
     }

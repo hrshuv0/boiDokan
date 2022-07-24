@@ -14,4 +14,5 @@ public static class CustomStatus
     public const string PaymentStatusDelayedPayment = "ApprovedForDelayPayment";
     public const string PaymentStatusRejected = "Rejected";
 
+    public const string SessionCart = "SessionShoppingCart";
 }
