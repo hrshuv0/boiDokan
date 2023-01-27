@@ -18,13 +18,13 @@ function loadDataTable() {
             {"data":"id",
                 "render":function (data){
                 return `
-                    <div class="w-75 btn-group" role="group">
+                    <div class="btn-group" role="group">
                         <a href="/Admin/Product/Upsert?id=${data}"
-                           class="btn btn-primary m-2">
+                           class="btn-md btn-primary mt-2 px-2 text-decoration-none">
                             <i class="bi bi-pencil-square"></i> Edit
                         </a>
                         <a onclick="Delete('/Admin/Product/Delete/${data}')"
-                           class="btn btn-danger m-2">
+                           class="btn-md btn-danger mt-2 ms-3 px-1 text-decoration-none" style="padding: 4px 1px;">
                             <i class="bi bi-trash-fill"></i> Delete
                         </a>
                     </div>
